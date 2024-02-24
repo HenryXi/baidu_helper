@@ -23,11 +23,17 @@
     for (var i = 0; i < list.length; i++) {
         var cur = list[i];
         if(cur.isdir==1){
-            document.getElementById('content').innerHTML = document.getElementById('content').innerHTML + '<span class="list-group-item col-lg-8"><a target="_blank" href="https://pan.baidu.com/api/list?clienttype=0&app_id=250528&web=1&dp-logid=83078100187049950055&order=time&desc=1&dir='
-                +encodeURIComponent(cur.path)+'&num=10000&page=1">'+cur.path+'</a></span><span class="list-group-item col-lg-4"><a target="_blank" href="https://pan.baidu.com/disk/main#/index?category=all&path='+encodeURIComponent(cur.path)+'">网盘页面</a></span>'
+            var title = cur.path
+            if(cur.path.length>70){
+                title=cur.path.substring(0,70)+'......'
+            }
+            document.getElementById('content').innerHTML = document.getElementById('content').innerHTML
+                + '<span class="list-group-item col-lg-1">'+(i+1)+'</span>'
+                + '<span class="list-group-item col-lg-10">'
+                +'<a title="'+cur.path+'" target="_blank" href="https://pan.baidu.com/api/list?clienttype=0&app_id=250528&web=1&dp-logid=83078100187049950055&order=time&desc=1&dir='
+                +encodeURIComponent(cur.path)+'&num=10000&page=1">'+title+'</a></span><span class="list-group-item col-lg-1"><a target="_blank" href="https://pan.baidu.com/disk/main#/index?category=all&path='+encodeURIComponent(cur.path)+'">网盘页面</a></span>'
         }else{
-            document.getElementById('content').innerHTML = document.getElementById('content').innerHTML + '<span class="list-group-item col-lg-8">'+list[i].path+'</span>'
+            document.getElementById('content').innerHTML = document.getElementById('content').innerHTML + '<span class="list-group-item col-lg-12">'+list[i].path+'</span>'
         }
     }
 })();
-
