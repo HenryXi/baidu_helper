@@ -13,6 +13,18 @@
 // @grant        GM_getResourceText
 // ==/UserScript==
 
+function getTime() {
+    const date = new Date(); // 创建一个Date对象
+    const year = date.getFullYear(); // 获取年份
+    const month = date.getMonth() + 1; // 获取月份，注意要加1
+    const day = date.getDate(); // 获取日期
+    const hour = date.getHours(); // 获取小时
+    const minute = date.getMinutes(); // 获取分钟
+    const second = date.getSeconds(); // 获取秒数
+
+    return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+}
+
 (function() {
     'use strict';
     var newCSS = GM_getResourceText("customCSS");
@@ -30,10 +42,11 @@
             document.getElementById('content').innerHTML = document.getElementById('content').innerHTML
                 + '<span class="list-group-item col-lg-1">'+(i+1)+'</span>'
                 + '<span class="list-group-item col-lg-10">'
-                +'<a title="'+cur.path+'" target="_blank" href="https://pan.baidu.com/api/list?clienttype=0&app_id=250528&web=1&dp-logid=83078100187049950055&order=time&desc=1&dir='
+                +'<a title="'+(cur.path + getTime())+'" target="_blank" href="https://pan.baidu.com/api/list?clienttype=0&app_id=250528&web=1&dp-logid=83078100187049950055&order=time&desc=1&dir='
                 +encodeURIComponent(cur.path)+'&num=10000&page=1">'+title+'</a></span><span class="list-group-item col-lg-1"><a target="_blank" href="https://pan.baidu.com/disk/main#/index?category=all&path='+encodeURIComponent(cur.path)+'">网盘页面</a></span>'
         }else{
-            document.getElementById('content').innerHTML = document.getElementById('content').innerHTML + '<span class="list-group-item col-lg-12">'+list[i].path+'</span>'
+            document.getElementById('content').innerHTML =document.getElementById('content').innerHTML + '<span class="list-group-item col-lg-1">'+(i+1)+'</span>'
+                 + '<span class="list-group-item col-lg-11"><a target="_blank" href="https://pan.baidu.com/pfile/video?path='+ encodeURIComponent(list[i].path)+'&theme=light&from=home">'+list[i].path+'</a></span>'
         }
     }
 })();
